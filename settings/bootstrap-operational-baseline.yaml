@@ -21,7 +21,7 @@ permissions:
       expected: required_when_workflow_used
       verify: "Run an explicitly requested Computer Use workflow"
     - id: k240-listener
-      target: "keyboard-config-logi-k240"
+      target: "keyboard-remap"
       services: ["Input Monitoring"]
       expected: required_for_device_profile
       verify: "Run the documented K240 F-key test"
@@ -49,8 +49,8 @@ startup:
     note: "Names are desired user-facing items; registration is performed by each app."
   user_launch_agents:
     expected_present:
-      - id: "com.xvk.install-my-macos-apps.keyboard-config-logi-k240"
-        purpose: "K240 function-key listener"
+      - id: "com.xvk.macomrade.keyboard-remap"
+        purpose: "K240 function-key remap app (receiver-agnostic; config-scoped to this K240)"
         required: true
       - id: "Google updater"
         purpose: "Browser/application updates"

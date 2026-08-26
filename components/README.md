@@ -54,6 +54,7 @@ and verification status belongs to machine-local state.
 | pymobiledevice3 | [pymobiledevice3.md](pymobiledevice3.md) | Core; Python venv; iOS automation — preferred layout exporter (widget kind + size) |
 | Codex CLI | [codex-cli.md](codex-cli.md) | Core; Homebrew/standalone preferred; reuse ChatGPT App CLI only as reviewed fallback |
 | OpenCode | [opencode.md](opencode.md) | Core; upstream Homebrew tap; open-source BYOK agent and Open Design runtime |
+| OpenCode Desktop | [opencode-desktop.md](opencode-desktop.md) | Core; Homebrew cask; optional GUI client for the same OpenCode agent |
 | CC Switch | [cc-switch.md](cc-switch.md) | Core; Homebrew cask; AI coding agent configuration manager |
 | @google/design.md | [google-design-md.md](google-design-md.md) | Core; npm global under fnm Node 24; DESIGN.md linter/exporter |
 | @deepseek-ai/dsh | [dsh-npm-engine.md](dsh-npm-engine.md) | Core; npm global under fnm Node 24; complete Harness engine CLI |
@@ -81,6 +82,7 @@ and verification status belongs to machine-local state.
 | mole | [mole.md](mole.md) | Core; Homebrew; review every cleanup |
 | Docker Desktop | [docker-desktop.md](docker-desktop.md) | Retired; OrbStack retained as the default replacement |
 | Antigravity CLI | [antigravity-cli.md](antigravity-cli.md) | Core replacement for retired Gemini CLI |
+| WorkBuddy | [workbuddy.md](workbuddy.md) | Core; no Homebrew cask — official vendor DMG from workbuddy.ai; office-agent workstation, not a coding IDE |
 
 ## Optional components
 

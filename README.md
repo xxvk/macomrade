@@ -208,8 +208,11 @@ The current Logitech K240 Japanese-keyboard policy is:
 | Key | Action |
 | --- | --- |
 | F1 | Open ChatGPT.app |
-| F2 | Open Claude.app |
-| F3 | Open Perplexity.app |
+| ⌃F1 / ⌘F1 | Open Claude.app |
+| F2 | Open Antigravity.app |
+| ⌃F2 / ⌘F2 | Open OpenCode.app |
+| F3 | Open Deepseek Harness Desktop.app |
+| ⌃F3 / ⌘F3 | Open Perplexity.app |
 | F4 | Mission Control |
 | F5 | Open YouTube.app (including PlayCover); otherwise Apple Music |
 | F6 | Previous Track |
@@ -219,6 +222,10 @@ The current Logitech K240 Japanese-keyboard policy is:
 | F10 | Volume Down |
 | F11 | Volume Up |
 | F12 | Open macOS Screenshot.app toolbar |
+
+There is deliberately no "hold two F-keys at once" binding (e.g. F1+F2); each
+F-key only combines with a standard modifier (Control or Command, either
+works identically), never with another F-key.
 
 The K240 is identified from the Logitech USB receiver (`VID 0x046d`,
 `PID 0xc534`) plus physical confirmation of the K240 model and Japanese
@@ -249,80 +256,115 @@ layout. The receiver ID alone does not uniquely identify the paired keyboard.
    hidutil property --get UserKeyMapping
    ```
 
-3. F1–F3, F5, and F12 are handled by the native listener source at
-   [`scripts/keyboard-config-logi-k240.swift`](scripts/keyboard-config-logi-k240.swift). It matches
-   the Logitech receiver and the relevant HID usages (`usage page 0x07`): F1
-   `0x3a`, F2 `0x3b`, F3 `0x3c`, F5 `0x3e`, and F12 `0x45`. It opens
-   ChatGPT.app, Claude.app, Perplexity.app, YouTube.app when present (including
-   `~/Applications/PlayCover/YouTube.app`; otherwise Apple Music), or
-   `/System/Applications/Utilities/Screenshot.app` respectively. F4 is
+3. F1–F3, F5, and F12 are handled by a menu bar app built from
+   [`scripts/keyboard-remap.swift`](scripts/keyboard-remap.swift). The app is
+   not specific to any keyboard brand or model: which HID receiver it matches
+   (`VendorID`/`ProductID`) is read from its config file at launch, not
+   hardcoded. It watches the relevant HID usages (`usage page 0x07`): F1
+   `0x3a`, F2 `0x3b`, F3 `0x3c`, F5 `0x3e`, F12 `0x45`, and the four
+   Control/Command modifier usages (`0xe0`, `0xe4`, `0xe3`, `0xe7` — left/right
+   each). F1 alone opens ChatGPT.app; ⌃F1 or ⌘F1 opens Claude.app instead. F2
+   alone opens Antigravity.app; ⌃F2 or ⌘F2 opens OpenCode.app. F3 alone opens
+   Deepseek Harness Desktop.app; ⌃F3 or ⌘F3 opens Perplexity.app. Every key
+   fires immediately — there is no chord window and no "two F-keys held
+   together" binding, only a single F-key plus an optional standard modifier.
+   F5 opens YouTube.app when present (including
+   `~/Applications/PlayCover/YouTube.app`; otherwise Apple Music); F12 opens
+   the full `/System/Applications/Utilities/Screenshot.app` toolbar, equivalent
+   to `Command-Shift-5` (it does not force an area selection). F4 is
    configured by the native macOS Mission Control shortcut (symbolic hotkey
-   ID 32), not by Swift. F12 opens
-   full screenshot toolbar, equivalent to `Command-Shift-5`; it does not
-   immediately force an area selection.
+   ID 32), not by this app.
 
-4. Compile and run the listener in the foreground for a first test:
+   The device match and every single-key/modified mapping above is read at
+   launch from
+   `~/Library/Application Support/macomrade/keyboard-remap.json`. If that file
+   is missing, the app writes its built-in default (the mapping listed above,
+   scoped to the Logitech K240 receiver `0x046d:0xc534`) to that path and
+   loads it from disk. Edit the JSON directly — including `device.vendor_id`
+   and `device.product_id`, to point the same app at a different keyboard
+   receiver entirely — without recompiling. F4/F5/F12 keep their existing
+   bespoke logic in Swift and are not part of this config file. The app's
+   menu bar icon has a **Reload Config** item that re-reads this file into the
+   running process immediately, with no restart needed.
+
+   A physical Fn+F1 chord was considered for the Claude.app binding instead of
+   Control/Command+F1, but an IOHIDManager probe against the K240 receiver
+   (2026-08-26) showed its Fn key produces no independent HID report at all —
+   Fn state is resolved entirely by keyboard/receiver firmware before any
+   event reaches host software, so "F1 alone" and "Fn+F1" are
+   indistinguishable here. Standard modifier keys were used instead because
+   they do generate their own HID usage. See the `fn_key_probe_2026_08_26`
+   note in
+   [`Private/keyboards/logitech-k240-japanese-dictation.yaml`](Private/keyboards/logitech-k240-japanese-dictation.yaml)
+   for the full probe result.
+
+4. Build and install the app, then test it:
 
    ```sh
-   swiftc scripts/keyboard-config-logi-k240.swift -o /tmp/keyboard-config-logi-k240
-   /tmp/keyboard-config-logi-k240
+   scripts/build-keyboard-remap-app.sh
+   open "$HOME/Applications/Keyboard Remap.app"
    ```
 
-   Press F1 and F2 and confirm that ChatGPT and Claude open. Press F4 and
+   Press F1 alone and confirm ChatGPT opens. Hold Control (or Command) and
+   press F1 and confirm Claude opens instead. Press F2 alone and confirm
+   Antigravity opens; hold Control/Command and press F2 and confirm OpenCode
+   opens. Press F3 alone and confirm Deepseek Harness Desktop opens; hold
+   Control/Command and press F3 and confirm Perplexity opens. Press F4 and
    confirm Mission Control opens through the macOS shortcut. Press F12 and
-   confirm that the Screenshot toolbar appears. Press F5 and
-   confirm that YouTube opens when installed, otherwise Apple Music opens. Test left Command twice in a text field to
-   confirm that Dictation starts or stops. Stop the
-   foreground process after testing. The listener writes diagnostics to
-   `~/Library/Logs/macomrade/keyboard-config-logi-k240.log`.
+   confirm that the Screenshot toolbar appears. Press F5 and confirm that
+   YouTube opens when installed, otherwise Apple Music opens. Test left
+   Command twice in a text field to confirm that Dictation starts or stops.
+   Quit the app from its menu bar icon after testing (or `launchctl bootout`
+   if it is already installed as a LaunchAgent — see below — to avoid two
+   instances competing for the same HID device). The app writes diagnostics
+   to `~/Library/Logs/macomrade/keyboard-remap.log`.
 
 5. If a function key is captured in the log but its action does not appear,
-   verify that the relevant system app exists. For F3, verify that
-   `/Applications/Perplexity.app` exists. For F12, verify that
+   verify that the relevant app exists at the path recorded in
+   `~/Library/Application Support/macomrade/keyboard-remap.json`
+   (for example `/Applications/Antigravity.app` or
+   `/Applications/Deepseek Harness Desktop.app`). For F12, verify that
    `/System/Applications/Utilities/Screenshot.app` exists and that macOS
    allows the Screenshot app to use the required Screen Recording capability.
-   If the listener cannot open the receiver, grant the terminal or installed
-   listener **Privacy & Security → Input Monitoring** permission and retry.
+   If the app cannot open the receiver, grant it **Privacy & Security →
+   Input Monitoring** permission (see below) and retry.
 
 ### Automatic startup
 
-The listener can run automatically after login through the LaunchAgent template
-[`templates/keyboard-config-logi-k240.launchagent.plist`](templates/keyboard-config-logi-k240.launchagent.plist).
-It is receiver-scoped, not a universal keyboard remapper: another brand or
-another receiver will not match the Swift HID filter. The receiver identifier
-does not uniquely prove that the paired physical keyboard is K240.
+The app can run automatically after login through the LaunchAgent template
+[`templates/keyboard-remap.launchagent.plist`](templates/keyboard-remap.launchagent.plist).
+Even though the app itself is receiver-agnostic (see above), each installed
+LaunchAgent still only ever talks to the one receiver named in its config
+file — pointing it at a different keyboard is a config edit, not a new
+LaunchAgent.
 
 The installed user-level locations are:
 
 ```text
-Binary:       ~/Library/Application Support/macomrade/bin/keyboard-config-logi-k240
-LaunchAgent:  ~/Library/LaunchAgents/com.xvk.install-my-macos-apps.keyboard-config-logi-k240.plist
-Logs:         ~/Library/Logs/macomrade/keyboard-config-logi-k240.log
-```
-
-The `~/Library` directory is hidden in Finder. Locate the binary with:
-
-```sh
-open -R "$HOME/Library/Application Support/macomrade/bin/keyboard-config-logi-k240"
+App:          ~/Applications/Keyboard Remap.app
+LaunchAgent:  ~/Library/LaunchAgents/com.xvk.macomrade.keyboard-remap.plist
+Config:       ~/Library/Application Support/macomrade/keyboard-remap.json
+Logs:         ~/Library/Logs/macomrade/keyboard-remap.log
 ```
 
 Input Monitoring is protected by macOS TCC. CLI can open the settings page but
 cannot silently grant this permission; `tccutil` can reset it but cannot
-authorize a new executable. Replacing or recompiling the binary may require
-authorization again. Every time the binary is replaced, the skill must
-automatically locate the new binary and open both Finder and the Input
-Monitoring page before asking the user to enable it:
+authorize a new executable. Rebuilding the app with
+`scripts/build-keyboard-remap-app.sh` re-signs it, which macOS treats as a new
+program — authorization must be granted again every time it is rebuilt.
+Locate it and open the Input Monitoring page with:
 
 ```sh
-open -R "$HOME/Library/Application Support/macomrade/bin/keyboard-config-logi-k240"
+open -R "$HOME/Applications/Keyboard Remap.app"
 open 'x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_ListenEvent'
 ```
 
 After authorization, reload the agent with:
 
 ```sh
+launchctl bootout gui/$(id -u)/com.xvk.macomrade.keyboard-remap 2>/dev/null
 launchctl bootstrap gui/$(id -u) \
-  "$HOME/Library/LaunchAgents/com.xvk.install-my-macos-apps.keyboard-config-logi-k240.plist"
+  "$HOME/Library/LaunchAgents/com.xvk.macomrade.keyboard-remap.plist"
 ```
 
 F4 is intentionally excluded from the listener. Its Mission Control binding

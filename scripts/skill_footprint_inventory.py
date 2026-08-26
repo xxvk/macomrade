@@ -19,7 +19,7 @@ HOME = Path.home()
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 
 KNOWN_LAUNCH_AGENTS = [
-    "com.xvk.install-my-macos-apps.keyboard-config-logi-k240",
+    "com.xvk.macomrade.keyboard-remap",
     "com.xvk.install-my-macos-apps.drift-check",
 ]
 

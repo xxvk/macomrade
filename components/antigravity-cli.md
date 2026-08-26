@@ -48,6 +48,23 @@ instead of keeping a release number in this reusable guide.
 
 Run sign-in or credential setup interactively when prompted. Never store tokens, passwords, recovery codes, or API keys in this guide, the catalog, or state logs.
 
+### Multi-Account & Gemini Key Rotation
+
+For developer workflows using Google AI Studio / Gemini API keys (e.g. for OpenCode, Pi, or headless testing across multiple Google accounts), use the repository-local key management script to validate and rotate keys safely:
+
+```sh
+# Validate the currently configured key in ~/.zshrc
+./bin/update-gemini-key --check
+
+# Verify and update GEMINI_API_KEY and GOOGLE_API_KEY for a new account
+./bin/update-gemini-key <NEW_KEY>
+
+# Interactive mode (prompts for input without leaving shell history)
+./bin/update-gemini-key
+```
+
+The utility verifies the key against Google's Generative Language API endpoint before modifying `~/.zshrc`.
+
 ## Verification
 
 ```sh
@@ -82,8 +99,14 @@ reported as a subset of output accounting: verify totals from the returned JSON
 rather than summing every displayed field independently.
 
 `/usage` (alias `/quota`) is a local slash command that reports the shared
-Gemini and third-party quota buckets without starting an agent turn:
+Gemini and third-party quota buckets without starting an agent turn. 
 
+For quick human-readable text output in the terminal:
+```sh
+agy -p '/usage'
+```
+
+For programmatic automation, request JSON output:
 ```sh
 agy -p '/usage' --output-format json
 ```

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "doubao": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "豆包（火山方舟）",
+      "options": {
+        "baseURL": "https://ark.cn-beijing.volces.com/api/v3",
+        "apiKey": "{env:ARK_API_KEY}"
+      },
+      "models": {
+        "doubao-seed-2-0-lite-260428": {
+          "name": "Doubao Seed 2.0 Lite (260428)",
+          "limit": {
+            "context": 229376,
+            "output": 131072
+          },
+          "cost": {
+            "input": 0.083,
+            "output": 0.5,
+            "cache_read": 0.017
+          }
+        },
+        "doubao-seed-2-0-mini-260428": {
+          "name": "Doubao Seed 2.0 Mini (260428)",
+          "limit": {
+            "context": 229376,
+            "output": 131072
+          },
+          "cost": {
+            "input": 0.028,
+            "output": 0.278,
+            "cache_read": 0.006
+          }
+        },
+        "doubao-seed-2-0-pro-260215": {
+          "name": "Doubao Seed 2.0 Pro (260215)",
+          "limit": {
+            "context": 262144,
+            "output": 131072
+          },
+          "cost": {
+            "input": 0.444,
+            "output": 2.222,
+            "cache_read": 0.089
+          }
+        },
+        "doubao-seed-evolving": {
+          "name": "Doubao Seed Evolving",
+          "limit": {
+            "context": 1048576,
+            "output": 262144
+          },
+          "cost": {
+            "input": 0.833,
+            "output": 4.167,
+            "cache_read": 0.167
+          }
+        }
+      }
+    },
+    "google": {
+      "options": {
+        "apiKey": "{env:GEMINI_API_KEY}"
+      }
+    }
+  },
+  "agent": {
+    "build": {
+      "model": "google/gemini-3.7-flash"
+    },
+    "plan": {
+      "model": "google/gemini-3.6-flash"
+    },
+    "general": {
+      "model": "google/gemini-3.1-flash-lite"
+    },
+    "scout": {
+      "model": "google/gemini-3.5-flash-lite"
+    },
+    "reviewer": {
+      "model": "zhipuai/glm-5.1"
+    },
+    "tester": {
+      "model": "google/gemini-3.5-flash-lite"
+    },
+    "compaction": {
+      "model": "minimax-cn/MiniMax-M3"
+    },
+    "title": {
+      "model": "google/gemini-3.1-flash-lite"
+    },
+    "summary": {
+      "model": "google/gemini-3.5-flash-lite"
+    }
+  }
+}

@@ -286,7 +286,7 @@ workflow_requirements:
     permissions: [accessibility, screen_recording, automation]
     verify: "Run an explicitly requested Computer Use workflow"
   - id: k240-listener
-    target: "keyboard-config-logi-k240 listener"
+    target: "Keyboard Remap app"
     permissions: [input_monitoring]
     verify: "Run the listener and test the documented function keys"
   - id: solaar-receiver-read

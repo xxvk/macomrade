@@ -77,6 +77,15 @@ the intended provider or subscription is known. The user enters every secret.
 Keep credentials and session state in Pi's user-owned storage, never in this
 catalog, component guide, diagnostics, or Git.
 
+### Default Model Alias
+
+Because Pi uses a provider-agnostic runtime and automatically negotiates models based on available API Keys, it does not hardcode a default model in a central configuration file. To ensure a consistent and cost-effective experience (avoiding accidental fallbacks to older or overly expensive models), it is highly recommended to configure a shell alias in `~/.zshrc`.
+
+For example, to force Pi to use the highly capable and cost-effective Qwen 3.7 Plus model by default:
+```sh
+alias pi="pi --model qwen3.7-plus"
+```
+
 Review each extension or Pi package separately. Installing the Core agent does
 not authorize loading third-party extensions, exposing a remote endpoint, or
 running it against untrusted source code.

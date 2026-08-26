@@ -1,0 +1,56 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "doubao": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "豆包（火山方舟）",
+      "options": {
+        "baseURL": "https://ark.cn-beijing.volces.com/api/v3",
+        "apiKey": "{env:ARK_API_KEY}"
+      },
+      "models": {
+        "doubao-seed-2-0-mini-260428": {
+          "name": "Doubao Seed 2.0 Mini (260428)",
+          "limit": {
+            "context": 229376,
+            "output": 131072
+          },
+          "cost": {
+            "input": 0.028,
+            "output": 0.278,
+            "cache_read": 0.006
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "build": {
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "plan": {
+      "model": "minimax-cn/MiniMax-M3"
+    },
+    "general": {
+      "model": "alibaba-cn/qwen3.7-flash"
+    },
+    "scout": {
+      "model": "doubao/doubao-seed-2-0-mini-260428"
+    },
+    "reviewer": {
+      "model": "minimax-cn/MiniMax-M3"
+    },
+    "tester": {
+      "model": "zhipuai/glm-4.7-flashx"
+    },
+    "compaction": {
+      "model": "minimax-cn/MiniMax-M3"
+    },
+    "title": {
+      "model": "doubao/doubao-seed-2-0-mini-260428"
+    },
+    "summary": {
+      "model": "alibaba-cn/qwen3.7-flash"
+    }
+  }
+}

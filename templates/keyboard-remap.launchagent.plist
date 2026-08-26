@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.xvk.install-my-macos-apps.keyboard-config-logi-k240</string>
+    <string>com.xvk.macomrade.keyboard-remap</string>
     <key>ProgramArguments</key>
     <array>
-        <string>__HOME__/Library/Application Support/install_my_macos_apps/bin/keyboard-config-logi-k240</string>
+        <string>__HOME__/Applications/Keyboard Remap.app/Contents/MacOS/Keyboard Remap</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
@@ -15,8 +15,8 @@
     <key>ProcessType</key>
     <string>Interactive</string>
     <key>StandardOutPath</key>
-    <string>__HOME__/Library/Logs/install_my_macos_apps/keyboard-config-logi-k240.launchagent.log</string>
+    <string>__HOME__/Library/Logs/macomrade/keyboard-remap.launchagent.log</string>
     <key>StandardErrorPath</key>
-    <string>__HOME__/Library/Logs/install_my_macos_apps/keyboard-config-logi-k240.launchagent.err.log</string>
+    <string>__HOME__/Library/Logs/macomrade/keyboard-remap.launchagent.err.log</string>
 </dict>
 </plist>

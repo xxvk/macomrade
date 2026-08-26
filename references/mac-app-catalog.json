@@ -257,6 +257,33 @@
       "download_estimate_method": "catalog_size_gb_planning_estimate"
     },
     {
+      "name": "Elgato Stream Deck",
+      "aliases": [
+        "Stream Deck",
+        "Stream Deck MK.2"
+      ],
+      "category": "Hardware utilities",
+      "tier": "optional",
+      "lifecycle_status": "active",
+      "source": "homebrew",
+      "delivery_method": "homebrew-cask",
+      "brew_cask": "elgato-stream-deck",
+      "official_url": "https://www.elgato.com/us/en/s/downloads?product=Stream+Deck",
+      "application_path": "/Applications/Elgato Stream Deck.app",
+      "bundle_identifiers": [
+        "com.elgato.StreamDeck"
+      ],
+      "guide": "components/elgato-stream-deck.md",
+      "size_gb": 0.3,
+      "follow_up": [
+        "Open Stream Deck and verify the connected Elgato device",
+        "Create an initial profile and assign only desired hotkeys or plugins",
+        "Review any macOS permissions requested by the app"
+      ],
+      "download_estimate_bytes": 300000000,
+      "download_estimate_method": "catalog_size_gb_planning_estimate"
+    },
+    {
       "name": "GitHub Desktop",
       "category": "Developer tools",
       "tier": "core",
@@ -1325,6 +1352,37 @@
       "download_estimate_bytes": 150000000,
       "download_estimate_method": "catalog_size_gb_planning_estimate",
       "cli_path": "/opt/homebrew/bin/opencode"
+    },
+    {
+      "name": "OpenCode Desktop",
+      "aliases": [
+        "opencode-desktop"
+      ],
+      "category": "Developer CLI",
+      "tier": "core",
+      "lifecycle_status": "active",
+      "source": "homebrew",
+      "delivery_method": "homebrew-cask",
+      "brew_cask": "opencode-desktop",
+      "official_url": "https://opencode.ai/",
+      "github_repository": "https://github.com/anomalyco/opencode",
+      "bundle_identifiers": [
+        "ai.opencode.desktop"
+      ],
+      "application_path": "/Applications/OpenCode.app",
+      "check_command": "test -d '/Applications/OpenCode.app'",
+      "install_after": [
+        "OpenCode"
+      ],
+      "account_required": true,
+      "size_gb": 0.15,
+      "follow_up": [
+        "Connect the selected provider interactively; never store credentials in the catalog",
+        "Confirm the desktop app reads the same opencode configuration as the CLI, not a forked copy"
+      ],
+      "guide": "components/opencode-desktop.md",
+      "download_estimate_bytes": 150000000,
+      "download_estimate_method": "cask_dmg_metadata"
     },
     {
       "name": "fd",
@@ -2899,6 +2957,32 @@
       ],
       "download_estimate_bytes": 1000000000,
       "download_estimate_method": "catalog_size_gb_planning_estimate"
+    },
+    {
+      "name": "WorkBuddy",
+      "category": "AI development",
+      "tier": "core",
+      "lifecycle_status": "active",
+      "source": "official_web",
+      "delivery_method": "vendor-download",
+      "brew_cask": null,
+      "official_url": "https://www.workbuddy.ai/",
+      "application_path": "/Applications/WorkBuddy AI.app",
+      "check_command": "test -d '/Applications/WorkBuddy AI.app'",
+      "note": "No Homebrew cask exists (confirmed absent from homebrew/cask, including open/merged PRs). International entry point only: https://www.workbuddy.ai/ ; do not substitute the domestic codebuddy.cn/work download page. Installed app bundle is named 'WorkBuddy AI.app', verified signed and notarized by Tencent Technology (Shanghai) Company Limited (FN2V63AD2J).",
+      "account_required": true,
+      "follow_up": [
+        "Verify code signature and Gatekeeper acceptance before first launch",
+        "Sign in with the intended Tencent Cloud account interactively; never store credentials in the catalog",
+        "Confirm this is the office-agent workstation, not a coding IDE substitute"
+      ],
+      "guide": "components/workbuddy.md",
+      "download_estimate_bytes": 1000000000,
+      "download_estimate_method": "dmg_zlib_plus_unpacked_app_bundle",
+      "bundle_identifiers": [
+        "com.workbuddy.workbuddy-ai"
+      ],
+      "size_gb": 1
     }
   ]
 }

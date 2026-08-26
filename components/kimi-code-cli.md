@@ -66,27 +66,21 @@ You can configure Kimi CLI to use the official Moonshot provider with an API key
 kimi provider catalog add moonshotai-cn --api-key <YOUR_API_KEY>
 ```
 
-Set the default model in `~/.kimi-code/config.toml`:
+Set the default model and the secondary model in `~/.kimi-code/config.toml` to leverage the First/Second model architecture for cost-efficiency:
 ```toml
-default_model = "moonshotai-cn/kimi-k2.7-code"
+default_model = "moonshotai-cn/kimi-k3"
+
+[secondary_model]
+model = "moonshotai-cn/kimi-k2.7-code"
 
 [providers.moonshotai-cn]
 # ...
 ```
 
-**Note:** For initial testing, `kimi-k3` is an acceptable default. For production-scale tasks, it is highly recommended to switch to `kimi-k2.7-code` to significantly reduce API cost without sacrificing code generation capability.
-
+**Note:** This architecture routes complex planning and code writing to the flagship `kimi-k3` model (First), while offloading routine tasks, linting, and subagent work to `kimi-k2.7-code` (Second), optimizing both performance and cost.
 
 ### Multi-Agent and Mixed Model Roles
-Kimi Code CLI supports delegating to specific subagents configured via Markdown files. You can mix flagship models (e.g., `kimi-k3`) for complex planning and specialized/cheaper models (e.g., `kimi-k2.7-code`) for routine tasks to optimize cost.
-
-1. **Configure Model Tiers**
-   Define a `secondary_model` alongside the `default_model` in `~/.kimi-code/config.toml`:
-   ```toml
-   default_model = "moonshotai-cn/kimi-k3"
-   [secondary_model]
-   model = "moonshotai-cn/kimi-k2.7-code"
-   ```
+Kimi Code CLI supports delegating to specific subagents configured via Markdown files. Because we already defined the `secondary_model` above, you can simply declare preferences in your agents.
 
 2. **Define Agent Preferences**
    In your custom agent profile (e.g., `agents/code-reviewer.md`), declare `model_preference: secondary` in the YAML frontmatter:

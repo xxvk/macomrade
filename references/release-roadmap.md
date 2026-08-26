@@ -129,7 +129,7 @@ The release-candidate artifact map is:
 | Machine-local runtime state | `scripts/state_paths.py`, `scripts/migrate_state.py`, `state/locator.json`, `references/machine-local-state.md` |
 | Permissions | `settings/privacy.yaml`, `scripts/macos_permissions.py`, `scripts/macos_permissions_cleanup.py` |
 | Preferences and workstyle | `settings/`, `scripts/macos_preferences.py` |
-| Dock, startup, Chrome, keyboard | `scripts/macos_dock.py`, `scripts/macos_startup_items.py`, `scripts/chrome_profiles.py`, `scripts/keyboard-config-logi-k240.swift` |
+| Dock, startup, Chrome, keyboard | `scripts/macos_dock.py`, `scripts/macos_startup_items.py`, `scripts/chrome_profiles.py`, `scripts/keyboard-remap.swift` |
 | Cleanup workflows | `scripts/capacities_cleanup.py`, `scripts/claude_vm_cleanup.py`, `scripts/docker_desktop_cleanup.py`, `scripts/openclaw_cleanup.py`, `scripts/scan_group_containers.py` |
 | Portability and recovery guidance | `references/disaster-recovery-runbook.md`, `references/multi-mac-continuous-sync.md`, `references/browser-bookmark-migration.md`, `references/ssh-gpg-provisioning.md` |
 | Integrity audits | `scripts/audit_component_frontmatter.py`, `scripts/audit_core_catalog.py`, `scripts/validate_app_catalog.py` |

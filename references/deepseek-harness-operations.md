@@ -269,6 +269,20 @@ a string, and `refs` is a mapping, not a string. Repair in place:
 Never store actual credential values in this repository; the document belongs
 to machine-local `~/.dsh` state (see the migration contract above).
 
+This failure recurs. It was repaired on 2026-08-21
+(`.credentials.yaml.broken-versioned-20260821-195955`) and reappeared on
+2026-08-27 with a byte-identical wrapper document and an mtime older than the
+repair, i.e. the file was restored from a copy that preserved timestamps
+rather than rewritten by hand. Treat a repair as provisional: after fixing,
+record the new mtime and size, and if the wrapper form returns, find the
+writer (backup/restore or migration tooling) before repairing again — the
+writer is not yet identified.
+
+Repair the file from an unsandboxed shell. A sandboxed tool session can report
+a successful write and a correct `cat` while the real `~/.dsh` file is
+untouched, which reads as "fixed" and is not. Confirm with `ls -l` that mtime
+and size actually changed before relaunching.
+
 ## VL capability (vision-router)
 
 `dsh-vision-router` (currently 1.7.4) gives text models eyes: semantic

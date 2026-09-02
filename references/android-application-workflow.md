@@ -292,6 +292,10 @@ folder page indicator is present, capture every internal page by swiping or
 mark uncaptured pages `user_confirmed`. Never treat nine visible members as
 the total membership of a multi-page folder.
 
+The 2026-08-22 Pixel archive is a concrete example: `Social` contains two
+pages and 18 members; page 1 is `ui_confirmed`, while page 2 was supplied by
+the user and is marked `user_confirmed` in the private record.
+
 ## Reviewed Apple Passwords export for Pixel Chrome
 
 `scripts/pixel_password_export.py` converts a user-exported Apple Passwords

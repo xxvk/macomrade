@@ -1,0 +1,31 @@
+schema_version: 1
+purpose: "Optional local LLM model weights for Apple Silicon"
+
+models:
+  - id: qwen3.8-27b-uncensored-oq4e-mtp
+    name: "Qwen3.8 27B Uncensored oQ4e MTP (MLX)"
+    tag: llm
+    tier: optional
+    source: huggingface
+    model_id: "pyros-vault/Qwen3.8-27B-Uncensored-oQ4e-mtp"
+    upstream_model_id: "orcarouter/Qwen3.8-27B-Uncensored"
+    download_url: "https://huggingface.co/pyros-vault/Qwen3.8-27B-Uncensored-oQ4e-mtp"
+    release_date: "2026-08-18"
+    precision: oQ4e
+    weight_format: MLX
+    approximate_download_bytes: 18243673000
+    installed_size_human: "16.99 GB"
+    expected_runtime_ram: "32 GB+ Unified Memory (fails on 16 GB M4 due to insufficient system memory guardrail)"
+    languages: [en, zh]
+    runtime: lm-studio-mlx
+    features:
+      - uncensored
+      - abliterated
+      - mtp_speculative_decoding
+    install_command: "hf download pyros-vault/Qwen3.8-27B-Uncensored-oQ4e-mtp --local-dir ~/.lmstudio/models/pyros-vault/Qwen3.8-27B-Uncensored-oQ4e-mtp"
+    verify_command: "lms load qwen3.8-27b-uncensored-oq4e-mtp --gpu max"
+    note: "Evaluated 2026-08-26 on 16 GB Apple M4: download succeeded (16.99 GB), but lms load failed guardrail check ('Model loading was stopped due to insufficient system resources'). Retain in optional catalog for future Mac hardware with 32 GB or 64 GB+ RAM (e.g. Mac mini / Mac Studio upgrade)."
+    local_validation:
+      date: "2026-08-26"
+      hardware: "Apple M4 16GB"
+      result: "rejected-hardware-insufficient-ram; requires 32GB+ Unified Memory"

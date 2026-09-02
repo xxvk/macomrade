@@ -217,7 +217,7 @@ def installed_apps(data=None):
             item = {"name": name, "version": version, "path": str(app)}
             if bundle_identifier:
                 item["bundle_identifier"] = bundle_identifier
-            entry = by_name.get(name.casefold()) or by_bundle.get((bundle_identifier or "").casefold())
+            entry = by_bundle.get((bundle_identifier or "").casefold()) or by_name.get(name.casefold())
             if entry:
                 item["catalog_name"] = entry["name"]
                 if entry.get("allow_multiple_bundles"):

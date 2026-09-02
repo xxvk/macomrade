@@ -74,3 +74,12 @@ The catalog entry for classic LM Studio is retained only to prevent accidental
 reinstallation and to document the migration. If it is still installed, quit
 both applications before removing the classic app bundle. Preserve shared
 models and configuration unless the user explicitly requests cleanup.
+
+## Optional Local Model Know-How & Sizing
+
+Local LLM models require matched Unified Memory on Apple Silicon:
+- **16 GB RAM (e.g. M4 Mac mini base)**: Best suited for 7B–9B or 14B models (e.g. 4-bit MLX ~5–8 GB).
+- **32 GB / 64 GB+ RAM (e.g. Mac mini / Studio upgrade)**: Required for 27B+ models.
+- Tracked candidates are documented in [`../references/llm-model-catalog.yaml`](../references/llm-model-catalog.yaml).
+  Example: `pyros-vault/Qwen3.8-27B-Uncensored-oQ4e-mtp` (16.99 GB MLX) is retained as an optional candidate for 32GB+ hardware.
+

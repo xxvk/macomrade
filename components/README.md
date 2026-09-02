@@ -61,6 +61,7 @@ and verification status belongs to machine-local state.
 | tamnd/x-cli (`x`) | [tamnd-x-cli.md](tamnd-x-cli.md) | Core; free, strictly read-only X access; pinned GitHub release |
 | Mermaid CLI (`mmdc`) | [mermaid-cli.md](mermaid-cli.md) | Core; Homebrew; Mermaid-to-SVG/PNG/PDF rendering |
 | Ghostty | [ghostty.md](ghostty.md) | Core; Homebrew; tracked visual baseline |
+| bun | [bun.md](bun.md) | Core; Homebrew; JavaScript runtime, bundler, test runner, and package manager |
 | deno | [deno.md](deno.md) | Core; Homebrew |
 | fnm | [fnm.md](fnm.md) | Core; Homebrew |
 | jenv | [jenv.md](jenv.md) | Core; Homebrew |

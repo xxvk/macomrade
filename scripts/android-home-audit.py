@@ -272,7 +272,7 @@ def main() -> int:
         "generated_at": stamp.isoformat(),
         "device": {"serial": serial, "model": model, "display_size": size},
         "evidence_levels": ["ui_confirmed", "visual_confirmed", "inferred", "unavailable"],
-        "limitations": ["launcher_db_unavailable_without_root", "widget_configuration_may_be_opaque"],
+        "limitations": ["launcher_db_unavailable_without_root", "widget_configuration_may_be_opaque", "folder_capture_is_current_internal_page_only"],
         "pages": pages,
         "folders": folders,
     }

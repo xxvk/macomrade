@@ -1706,6 +1706,19 @@
       "cli_path": "/opt/homebrew/opt/smartdns"
     },
     {
+      "name": "bun",
+      "category": "Developer CLI",
+      "tier": "core",
+      "brew_formula": "bun",
+      "check_command": "bun --version",
+      "official_url": "https://bun.com/",
+      "guide": "components/bun.md",
+      "size_gb": 0.1,
+      "follow_up": [],
+      "download_estimate_bytes": 60000000,
+      "download_estimate_method": "catalog_size_gb_planning_estimate"
+    },
+    {
       "name": "deno",
       "category": "Developer CLI",
       "tier": "core",
@@ -2938,24 +2951,24 @@
       "aliases": [
         "Eliza",
         "eliza-autonomous",
-        "GrokBot"
+        "GrokBot",
+        "elizaos"
       ],
       "category": "AI developer agent",
       "tier": "core",
       "lifecycle_status": "active",
-      "source": "github",
-      "delivery_method": "github-source",
+      "source": "official_web",
+      "delivery_method": "bun-global-package",
       "official_url": "https://github.com/elizaOS/eliza",
-      "size_gb": 1,
-      "note": "Locally built from github repository using bun. Must use stable beta tag instead of main branch due to upstream instability. iCloud drive paths with spaces will break the build. Wipe packages/agent/.elizadb before running a downgraded version.",
+      "check_command": "elizaos --version",
+      "size_gb": 0.2,
+      "note": "Primary delivery method is global CLI via bun (`bun install -g @elizaos/cli`), secondary fallback via pnpm (`pnpm add -g @elizaos/cli`).",
       "guide": "components/eliza-agent-cli.md",
       "follow_up": [
-        "Clone elizaOS/eliza repository to a non-iCloud path without spaces",
-        "Checkout latest stable beta tag (e.g. v2.0.11-beta.7) instead of main",
-        "Build using bun install && bun run build",
-        "Run using bun run start tui instead of serve to bypass broken API plugins"
+        "Run `elizaos create` to initialize and configure agent projects",
+        "Run `elizaos start` to manage plugins and agent lifecycle"
       ],
-      "download_estimate_bytes": 1000000000,
+      "download_estimate_bytes": 100000000,
       "download_estimate_method": "catalog_size_gb_planning_estimate"
     },
     {
